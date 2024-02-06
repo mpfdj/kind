@@ -6,6 +6,7 @@ https://mcvidanagama.medium.com/set-up-a-multi-node-kubernetes-cluster-locally-u
 
 kind create cluster --config my-k8s-cluster-config.yml
 docker pull kindest/node:v1.25.3
+kind delete cluster --name my-k8s-cluster
 
 
 docker ps
@@ -39,3 +40,28 @@ kubectl apply -f helloworld.yml
 
 # https://www.baeldung.com/ops/kubernetes-list-every-pod-node
 kubectl get pods -o wide
+
+
+
+
+# Ingress with KIND
+https://kind.sigs.k8s.io/docs/user/ingress#ingress-nginx
+https://www.baeldung.com/ops/kubernetes-kind
+
+kubectl apply -f hello-service.yml
+kubectl get services
+curl localhost/hello
+
+
+# Kubernetes dashboard
+https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+https://stackoverflow.com/questions/72481655/creating-a-kubernetes-dashboard-token
+kubectl apply -f service-account.yml
+kubectl apply -f cluster-role-binding.yml
+
+cd C:\Users\TO11RC\OneDrive - ING\miel\kubectl
+kubectl version --output=json
+kubectl -n kubernetes-dashboard create token admin-user
+
+kubectl proxy
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
