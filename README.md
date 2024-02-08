@@ -84,3 +84,11 @@ docker ps -a
 # Nginx logs
 kubectl logs -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx
 kubectl get ingress --show-labels
+
+
+
+# How to get a shell to a running container in a Kubernetes cluster
+https://kubernetes.io/docs/tasks/debug/debug-application/get-shell-running-container/
+Get pod ID from dashboard
+kubectl describe pod helloworld-app-7cc8645bdc-qlg54
+kubectl exec -it helloworld-app-7cc8645bdc-qlg54 -- /bin/bash
