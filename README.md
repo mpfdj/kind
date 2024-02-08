@@ -35,7 +35,7 @@ kubectl create clusterrolebinding cluster-system-anonymous --clusterrole=cluster
 
 # Deploy app
 # https://amdocs-1.gitbook.io/kubernetes-handbook/installation-and-running-mac-os/running-hello-world-application
-kubectl apply -f helloworld.yml
+kubectl apply -f helloworld-create.yml
 
 
 # https://www.baeldung.com/ops/kubernetes-list-every-pod-node
@@ -48,7 +48,7 @@ kubectl get pods -o wide
 https://kind.sigs.k8s.io/docs/user/ingress#ingress-nginx
 https://www.baeldung.com/ops/kubernetes-kind
 
-kubectl apply -f hello-service.yml
+kubectl apply -f hello-create.yml
 kubectl get services
 curl localhost/hello
 
@@ -59,9 +59,28 @@ https://stackoverflow.com/questions/72481655/creating-a-kubernetes-dashboard-tok
 kubectl apply -f service-account.yml
 kubectl apply -f cluster-role-binding.yml
 
+# Latest kubectl
 cd C:\Users\TO11RC\OneDrive - ING\miel\kubectl
 kubectl version --output=json
 kubectl -n kubernetes-dashboard create token admin-user
 
 kubectl proxy
 http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+
+
+
+# Get cluster info
+kind get clusters
+kubectl cluster-info
+kubectl cluster-info dump >dump.txt
+
+
+# Pause a container
+docker pause <id>
+docker unpause <id>
+docker ps -a
+
+
+# Nginx logs
+kubectl logs -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx
+kubectl get ingress --show-labels
