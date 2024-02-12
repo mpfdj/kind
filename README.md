@@ -2,6 +2,8 @@ https://blog.kubesimplify.com/getting-started-with-kind-creating-a-multi-node-lo
 https://mcvidanagama.medium.com/set-up-a-multi-node-kubernetes-cluster-locally-using-kind-eafd46dd63e5
 
 
+# Install kind.exe
+https://kind.sigs.k8s.io/docs/user/quick-start
 
 
 kind create cluster --config my-k8s-cluster-config.yml
@@ -92,3 +94,9 @@ https://kubernetes.io/docs/tasks/debug/debug-application/get-shell-running-conta
 Get pod ID from dashboard
 kubectl describe pod helloworld-app-7cc8645bdc-qlg54
 kubectl exec -it helloworld-app-7cc8645bdc-qlg54 -- /bin/bash
+
+
+# Load Docker image into Kind cluster
+https://github.com/kubernetes-sigs/kind/issues/915.
+https://iximiuz.com/en/posts/kubernetes-kind-load-docker-image/
+kind load docker-image java/helloworld-api:1.0.0 --name my-k8s-cluster
