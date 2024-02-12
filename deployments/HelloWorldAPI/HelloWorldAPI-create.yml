@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-api-app
+spec:
+  selector:
+    matchLabels:
+      app: helloworld-api-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: helloworld-api-app
+    spec:
+      containers:
+        - name: helloworld-api-app
+          image: java/helloworld-api:1.0.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: helloworld-api-service
+spec:
+  selector:
+    app: helloworld-api-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: helloworld-api-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: "/helloworld-api"
+            backend:
+              service:
+                name: helloworld-api-service
+                port:
+                  number: 8080
+---
