@@ -84,7 +84,7 @@ docker ps -a
 
 
 # Nginx logs
-kubectl logs -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx
+kubectl logs -f -n ingress-nginx -l app.kubernetes.io/name=ingress-nginx
 kubectl get ingress --show-labels
 
 
@@ -100,3 +100,26 @@ kubectl exec -it helloworld-app-7cc8645bdc-qlg54 -- /bin/bash
 https://github.com/kubernetes-sigs/kind/issues/915.
 https://iximiuz.com/en/posts/kubernetes-kind-load-docker-image/
 kind load docker-image java/helloworld-api:1.0.0 --name my-k8s-cluster
+
+
+# Get pod logging
+kubectl get pods -o wide
+kubectl logs -f helloworld-api-app-58659b69f6-ks8px
+kubectl get pods --all-namespaces
+
+
+
+# List / remove images from Kind node
+docker exec -it my-k8s-cluster-control-plane crictl images
+docker exec -it my-k8s-cluster-worker crictl images
+docker exec -it my-k8s-cluster-worker2 crictl images
+
+docker exec -it my-k8s-cluster-control-plane crictl rmi ecfeaa3af96e0
+docker exec -it my-k8s-cluster-worker crictl rmi ecfeaa3af96e0
+docker exec -it my-k8s-cluster-worker2 crictl rmi ecfeaa3af96e0
+
+docker exec -it my-k8s-cluster-control-plane crictl rmi --prune
+docker exec -it my-k8s-cluster-worker crictl rmi --prune
+docker exec -it my-k8s-cluster-worker2 crictl rmi --prune
+
+https://discuss.kubernetes.io/t/cant-access-endpoint-of-springboot-webservice-from-ingress/6611
