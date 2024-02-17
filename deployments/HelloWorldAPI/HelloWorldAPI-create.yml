@@ -16,8 +16,6 @@ spec:
         - name: helloworld-api-app
           image: java/helloworld-api:1.0.0
           imagePullPolicy: Never
-          ports:
-            - containerPort: 8080
 ---
 kind: Service
 apiVersion: v1
@@ -27,9 +25,7 @@ spec:
   selector:
     app: helloworld-api-app
   ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
+    - port: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -39,6 +35,13 @@ spec:
   rules:
     - http:
         paths:
+          - pathType: Exact
+            path: "/helloworld-api"
+            backend:
+              service:
+                name: helloworld-api-service
+                port:
+                    number: 8080
           - pathType: Prefix
             path: "/helloworld-api"
             backend:
@@ -46,4 +49,5 @@ spec:
                 name: helloworld-api-service
                 port:
                   number: 8080
+
 ---

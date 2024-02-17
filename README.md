@@ -122,4 +122,13 @@ docker exec -it my-k8s-cluster-control-plane crictl rmi --prune
 docker exec -it my-k8s-cluster-worker crictl rmi --prune
 docker exec -it my-k8s-cluster-worker2 crictl rmi --prune
 
+
+# Inspect image
+docker exec -it my-k8s-cluster-control-plane crictl inspecti 3cf649ffdd52f
+
+
 https://discuss.kubernetes.io/t/cant-access-endpoint-of-springboot-webservice-from-ingress/6611
+
+
+# Testing helloworld-api
+http://localhost/helloworld-api
