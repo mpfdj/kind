@@ -132,3 +132,50 @@ https://discuss.kubernetes.io/t/cant-access-endpoint-of-springboot-webservice-fr
 
 # Testing helloworld-api
 http://localhost/helloworld-api
+
+
+
+docker exec -it my-k8s-cluster-control-plane crictl images | sort | grep -e import -e helloworld-api
+docker exec -it my-k8s-cluster-control-plane crictl inspecti fb573987c115e
+docker exec -it my-k8s-cluster-control-plane crictl inspecti fb573987c115e | jq '. | (.status.id + " " + .info.imageSpec.created)'
+
+
+# Setup WSL
+/home/miel/.bashrc
+alias kubectl="cmd.exe /c kubectl"
+
+
+
+IMAGE .status.repoDigests[0]
+IMAGE ID .status.id substring
+SIZE .status.size in bytes
+IMAGE CREATED .info.imageSpec.created
+
+
+# Find skip directory
+# On WSL use the -mount flag (which skips all mounts)
+find / -mount -iname "*.pm" -type f | sort
+
+$ cd /tmp/test
+$ find|sort
+.
+./one
+./one/aaa
+./one/hidden
+./one/hidden/AAA
+./three
+./three/ccc
+./two
+./two/bbb
+
+
+find -type f -not -path "./one/*"
+
+./two/bbb
+./three/ccc
+
+
+
+
+# Execute Perl or Python command
+https://stackoverflow.com/questions/2394988/get-ceiling-integer-from-number-in-linux-bash
