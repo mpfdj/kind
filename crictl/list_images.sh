@@ -22,5 +22,5 @@ do
 
 done
 
-sort -t$'\t' -k1,1 -k4,4r /dev/shm/list_images.tmp
+sort -t $'\t' -k1,1 -k4,4r /dev/shm/list_images.tmp
 rm -f /dev/shm/list_images.tmp
