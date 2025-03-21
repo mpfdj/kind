@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: bwce-http-app
+  name: bwce-http-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bwce-http-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: bwce-http-app
+    spec:
+      containers:
+      - image: bwce-http-app:latest
+        name: bwce-http-app
+        imagePullPolicy: Never
+        resources: {}
+status: {}
