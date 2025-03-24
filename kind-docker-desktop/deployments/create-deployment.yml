@@ -1,0 +1,56 @@
+# Don't forget to load the local image to the Kind cluster upfront
+# kind load docker-image bwce-http-app:latest --name kind
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: bwce-http-app
+  name: bwce-http-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bwce-http-app
+  template:
+    metadata:
+      labels:
+        app: bwce-http-app
+    spec:
+      containers:
+        - image: bwce-http-app:latest
+          name: bwce-http-app
+          imagePullPolicy: Never
+          env:
+            - name: MESSAGE
+              value: "Hello world from TIBCO bwce container."
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: bwce-http-app-service
+spec:
+  selector:
+    app: bwce-http-app
+  ports:
+    - port: 8080
+      name: http-port
+    - port: 8090
+      name: some-other-port
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bwce-http-app-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - pathType: Exact
+            path: "/bwce"
+            backend:
+              service:
+                name: bwce-http-app-service
+                port:
+                    number: 8080

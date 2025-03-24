@@ -1,0 +1,8 @@
+{
+  "spec": {
+    "type": "LoadBalancer",
+    "externalIPs": [
+      "10.76.179.243"
+    ]
+  }
+}
